@@ -10,8 +10,6 @@ const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
 csvToJson()
   .fromFile(matchesFilePath)
   .then((matches) => {
-    let matchIds2015 = matches.map((match) => match.id);
-
     csvToJson()
       .fromFile(deliveriesFilePath)
       .then((deliveries) => {
@@ -19,7 +17,7 @@ csvToJson()
 
         deliveries.forEach((curr) => {
           let superOver = curr.is_super_over;
-          if (matchIds2015.includes(curr.match_id) && superOver === "1") {
+          if (superOver === "1") {
             let bowler = curr.bowler;
             let runsGiven =
               parseInt(curr.total_runs) -
