@@ -49,26 +49,17 @@ csvToJson()
         const sortedEconomy = Object.entries(economyRates).sort(
           (a, b) => a[1] - b[1]
         );
-  
-        let ans=sortedEconomy[0];
-      
-        
-        
-         
-        
-        
 
-         fs.writeFileSync(
-              "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
-              JSON.stringify(ans),
-              (err ) => {
-                if (err) throw err;
-                
-              }
-            );
+        let ans = sortedEconomy[0];
+
+        fs.writeFileSync(
+          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
+          JSON.stringify(ans),
+          (err) => {
+            if (err) throw err;
+          }
+        );
 
         console.log(ans);
       });
   });
-
-  

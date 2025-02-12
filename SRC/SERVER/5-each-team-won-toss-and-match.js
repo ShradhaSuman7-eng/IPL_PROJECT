@@ -29,7 +29,7 @@ csvToJson()
       JSON.stringify(totalTimesWin),
       (err, data) => {
         if (err) throw err;
-        console.log(data);
+       
       }
     );
 

@@ -64,7 +64,7 @@ csvToJson()
           JSON.stringify(strikeRates),
           (err, data) => {
             if (err) throw err;
-            console.log(data);
+            
           }
         );
         console.log(strikeRates);

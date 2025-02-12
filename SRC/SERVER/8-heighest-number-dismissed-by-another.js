@@ -40,7 +40,7 @@ csvToJson()
     fs.writeFileSync(
       "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/8-highest-number-of-times-dismissed-by-another.json",
       JSON.stringify(Details),
-      (err ) => {
+      (err, data) => {
         if (err) throw err;
         
       }
