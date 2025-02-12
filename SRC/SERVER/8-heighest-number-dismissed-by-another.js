@@ -37,12 +37,12 @@ csvToJson()
       }
     }
 
-    fs.writeFile(
-      "IPL_PROJECT/SRC/PUBLIC/OUTPUT/8-highest-number-of-times-dismissed-by-another.json",
+    fs.writeFileSync(
+      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/8-highest-number-of-times-dismissed-by-another.json",
       JSON.stringify(Details),
-      (err, data) => {
+      (err ) => {
         if (err) throw err;
-        // console.log(data);
+        
       }
     );
 
