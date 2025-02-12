@@ -25,7 +25,7 @@ csvToJson()
     });
 
     fs.writeFile(
-      "IPL_PROJECT/SRC/PUBLIC/OUTPUT/5-each-team-won-toss-ans-match.json",
+      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/5-each-team-won-toss-ans-match.json",
       JSON.stringify(totalTimesWin),
       (err, data) => {
         if (err) throw err;

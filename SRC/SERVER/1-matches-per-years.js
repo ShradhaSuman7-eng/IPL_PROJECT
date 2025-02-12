@@ -24,7 +24,7 @@ csv()
     }, {});
 
     fs.writeFile(
-      "IPL_PROJECT/SRC/PUBLIC/OUTPUT/1-match-per-year-json",
+      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/1-match-per-year-json",
       JSON.stringify(matchesPerYear),
       (err, data) => {
         if (err) throw err;

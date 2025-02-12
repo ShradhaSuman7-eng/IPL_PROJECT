@@ -50,7 +50,7 @@ csvToJson()
         let ans = Object.fromEntries(output);
 
         fs.writeFile(
-          "IPL_PROJECT/SRC/PUBLIC/OUTPUT/4-top-10Economical-bowler.json",
+          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/4-top-10Economical-bowler.json",
           JSON.stringify(ans),
           (err, data) => {
             if (err) throw err;

@@ -60,14 +60,13 @@ csvToJson()
         }
 
         fs.writeFile(
-          "IPL_PROJECT/SRC/PUBLIC/OUTPUT/7-strike-rate-of-batsman-each-season.json",
+          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/7-strike-rate-of-batsman-each-season.json",
           JSON.stringify(strikeRates),
           (err, data) => {
             if (err) throw err;
             console.log(data);
           }
         );
-
         console.log(strikeRates);
       });
   });

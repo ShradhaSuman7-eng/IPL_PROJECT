@@ -29,7 +29,7 @@ csvToJson()
 
 
 
-         fs.writeFile('IPL_PROJECT/SRC/PUBLIC/OUTPUT/3-extra-run-conceded.json',JSON.stringify(extraRunsPerTeam2016),(err,data)=>{
+         fs.writeFile('../IPL_PROJECT/SRC/PUBLIC/OUTPUT/3-extra-run-conceded.json',JSON.stringify(extraRunsPerTeam2016),(err,data)=>{
               if(err) throw err;
               console.log(data);
               

@@ -51,7 +51,7 @@ csvToJson()
 
 
     fs.writeFile(
-      "IPL_PROJECT/SRC/PUBLIC/OUTPUT/6-won-highest-number-player-match.json",
+      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/6-won-highest-number-player-match.json",
       JSON.stringify(highestAwardWinners),
       (err, data) => {
         if (err) throw err;

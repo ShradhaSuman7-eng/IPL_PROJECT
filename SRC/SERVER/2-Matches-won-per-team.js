@@ -29,7 +29,7 @@ csv()
       }, {});
 
 
- fs.writeFile('IPL_PROJECT/SRC/PUBLIC/OUTPUT/2-matches-won-per-team.json',JSON.stringify(winCount),(err,data)=>{
+ fs.writeFile('../IPL_PROJECT/SRC/PUBLIC/OUTPUT/2-matches-won-per-team.json',JSON.stringify(winCount),(err,data)=>{
       if(err) throw err;
       console.log(data);
       
