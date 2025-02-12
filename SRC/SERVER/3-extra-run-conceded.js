@@ -18,10 +18,10 @@ csvToJson()
         const extraRunsPerTeam2016 = deliveries.reduce((acc, curr) => {
           if (matchIds2016.includes(curr.match_id)) {
             const totalExtras = parseInt(curr.extra_runs);
-            if (!acc[curr.batting_team]) {
-              acc[curr.batting_team] = 0;
+            if (!acc[curr.bowling_team]) {
+              acc[curr.bowling_team] = 0;
             }
-            acc[curr.batting_team] += totalExtras;
+            acc[curr.bowling_team] += totalExtras;
           }
           return acc;
         }, {});
