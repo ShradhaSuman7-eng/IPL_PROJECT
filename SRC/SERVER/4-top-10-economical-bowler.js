@@ -45,7 +45,7 @@ csvToJson()
         }
 
         const arr = Object.entries(economyRates);
-        let output = arr.sort((a, b) => b[1] - a[1]).slice(0, 10);
+        let output = arr.sort((a, b) => a[1] - b[1]).slice(0, 10);
 
         let ans = Object.fromEntries(output);
 
