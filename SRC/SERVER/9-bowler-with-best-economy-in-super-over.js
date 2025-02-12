@@ -10,8 +10,7 @@ const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
 csvToJson()
   .fromFile(matchesFilePath)
   .then((matches) => {
-    let matchIds2015 = matches
-      .map((match) => match.id);
+    let matchIds2015 = matches.map((match) => match.id);
 
     csvToJson()
       .fromFile(deliveriesFilePath)
@@ -48,22 +47,26 @@ csvToJson()
         }
 
         const sortedEconomy = Object.entries(economyRates).sort(
-          (a, b) => b[1] - a[1] 
+          (a, b) => a[1] - b[1]
         );
-
-
+  
+        let ans=sortedEconomy[0];
+      
+        
+        
+         
+        
+        
 
         fs.writeFile(
           "IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
-          JSON.stringify(sortedEconomy),
-          (err, data) => {
+          JSON.stringify(ans),
+          (err) => {
             if (err) throw err;
-            console.log(data);
+            // console.log(data);
           }
         );
 
-
-        console.log(sortedEconomy);
-        
+        console.log(ans);
       });
   });
