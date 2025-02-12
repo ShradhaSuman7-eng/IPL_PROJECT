@@ -58,13 +58,9 @@ csvToJson()
         
         
 
-        fs.writeFile(
-          "IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
+        fs.writeFileSync(
+          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
           JSON.stringify(ans),
-          (err) => {
-            if (err) throw err;
-            // console.log(data);
-          }
         );
 
         console.log(ans);
