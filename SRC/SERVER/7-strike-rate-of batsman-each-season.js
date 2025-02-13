@@ -18,6 +18,8 @@ csvToJson()
       return acc;
     }, {});
 
+
+
     csvToJson()
       .fromFile(deliveriesFilePath)
       .then((deliveries) => {
@@ -53,7 +55,7 @@ csvToJson()
         if (matchSeasonMap[season].includes(matchId)) {
           let batsman = curr.batsman;
           let runsScored = parseInt(curr.batsman_runs);
-          let ballsFaced = 1;
+          let totalballs = curr.wide_runs > 0 || curr.noball_runs > 0 ? 0 : 1;
 
           if (!acc[season]) {
             acc[season] = {};
@@ -64,7 +66,7 @@ csvToJson()
           }
 
           acc[season][batsman].runs += runsScored;
-          acc[season][batsman].balls += ballsFaced;
+          acc[season][batsman].balls += totalballs;
         }
       }
         return acc;

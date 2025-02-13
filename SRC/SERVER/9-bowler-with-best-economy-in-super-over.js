@@ -47,7 +47,6 @@ csvToJson()
         const sortedEconomy = Object.entries(economyRates).sort(
           (a, b) => a[1] - b[1]
         );
-
         let ans = sortedEconomy[0];
 
         fs.writeFileSync(
