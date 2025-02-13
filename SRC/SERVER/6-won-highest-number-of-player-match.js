@@ -11,26 +11,23 @@ csvToJson()
   .fromFile(matchesFilePath)
 
   .then((matches) => {
-    let seasonWiseData = {};
-
-    matches.forEach((match) => {
+    let result = matches.reduce((acc, match) => {
       let season = match.season;
       let player = match.player_of_match;
-
-      if (!seasonWiseData[season]) {
-        seasonWiseData[season] = {};
+      if (!acc[season]) {
+        acc[season] = {};
       }
-
-      if (!seasonWiseData[season][player]) {
-        seasonWiseData[season][player] = 1;
+      if (!acc[season][player]) {
+        acc[season][player] = 1;
       } else {
-        seasonWiseData[season][player] += 1;
+        acc[season][player]++;
       }
-    });
+      return acc;
+    }, {});
 
     let highestAwardWinners = {};
-    for (let season in seasonWiseData) {
-      let players = seasonWiseData[season];
+    for (let season in result) {
+      let players = result[season];
       //   console.log(players);
 
       let maxAwards = 0;
@@ -46,19 +43,13 @@ csvToJson()
       highestAwardWinners[season] = { player: bestPlayer, awards: maxAwards };
     }
 
-
-
-
-
     fs.writeFile(
       "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/6-won-highest-number-player-match.json",
       JSON.stringify(highestAwardWinners),
       (err, data) => {
         if (err) throw err;
-        
       }
     );
-
 
     console.log(highestAwardWinners);
   });
