@@ -11,32 +11,41 @@ if (!fs.existsSync(csvFilePath)) {
 
 csv()
   .fromFile(csvFilePath)
-  //Number of matches won per team per year in IPL.
   .then((source) => {
-    let winCount = source
-      .map((match) => ({ season: match.season, winner: match.winner }))
-      .reduce((final, { season, winner }) => {
-        if (!final[season]) {
-          final[season] = {};
-        }
-        if (!final[season][winner]) {
-          final[season][winner] = 0;
-        }
-        final[season][winner]++;
-        return final;
-      }, {});
+    let finalOutput = {};
 
+   
+    function winCount(source) {
+      for (let curr of source) {
+        let season = curr.season;
+        let winner = curr.winner;
+        
+        if (!finalOutput[season]) {
+          finalOutput[season] = {};
+        }
+        
+        if (!finalOutput[season][winner]) {
+          finalOutput[season][winner] = 0;
+        }
+
+        finalOutput[season][winner]++; 
+      }
+
+      return finalOutput;
+    }
+
+
+    const result = winCount(source);
     fs.writeFile(
-      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/2-matches-won-per-team.json",
-      JSON.stringify(winCount),
-      (err, data) => {
-        (err) => {
-          if (err) {
-            console.log(err);
-          }
-        };
+      path.join(__dirname, "SRC/PUBLIC/OUTPUT/2-matches-won-per-team.json"),
+      JSON.stringify(result),  
+      (err) => {
+        if (err) {
+          console.error("Error writing file:", err);
+        } 
       }
     );
-
-    console.log(winCount);
-  });
+    console.log(result);
+    
+  })
+  

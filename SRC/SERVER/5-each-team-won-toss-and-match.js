@@ -10,26 +10,31 @@ csvToJson()
   .fromFile(matchesFilePath)
 
   .then((matches) => {
-    let result = matches.reduce((acc, curr) => {
-      let winner = curr.winner;
-      let tossWinner = curr.toss_winner;
-      if (winner === tossWinner) {
-       if(! acc[winner] ){
-        acc[winner]=0;
-       }
-        acc[winner]++;
-      }
+    let finalArr = {};
 
-      return acc;
-    }, {});
+    function findWinnertime(matches) {
+      for (let curr of matches) {
+        let winner = curr.winner;
+        let tossWinner = curr.toss_winner;
+        if (winner === tossWinner) {
+          if (!finalArr[winner]) {
+            finalArr[winner] = 0;
+          }
+          finalArr[winner]++;
+        }
+      }
+      return finalArr;
+    }
+    let ans = findWinnertime(matches);
+    console.log(ans);
 
     fs.writeFile(
       "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/5-each-team-won-toss-ans-match.json",
-      JSON.stringify(result),
+      JSON.stringify(ans),
       (err, data) => {
         if (err) throw err;
       }
     );
 
-    console.log(result);
+    console.log(ans);
   });

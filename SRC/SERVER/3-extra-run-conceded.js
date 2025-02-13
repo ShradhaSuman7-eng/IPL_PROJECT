@@ -8,32 +8,50 @@ const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
 csvToJson()
   .fromFile(matchesFilePath)
   .then((matches) => {
-    let matchIds2016 = matches
-      .filter((match) => match.season === "2016")
-      .map((match) => match.id);
+    let newMatchIds = [];
+    for (let curr of matches) {
+      if (curr.season === "2016") {
+        newMatchIds.push(curr.id);
+      }
+    }
+
+    // console.log(newMatchIds);
 
     csvToJson()
       .fromFile(deliveriesFilePath)
       .then((deliveries) => {
-        const extraRunsPerTeam2016 = deliveries.reduce((acc, curr) => {
-          if (matchIds2016.includes(curr.match_id)) {
-            const totalExtras = parseInt(curr.extra_runs);
-            if (!acc[curr.bowling_team]) {
-              acc[curr.bowling_team] = 0;
+        let newfunc = function extraRun_conceded(deliveries) {
+          let finalAnswer = {};
+          for (let curr of deliveries) {
+            let newid = curr.match_id;
+            if (newMatchIds.includes(newid)) {
+              const totalExtras = parseInt(curr.extra_runs);
+              if (!finalAnswer[curr.bowling_team]) {
+                finalAnswer[curr.bowling_team] = 0;
+              }
+              finalAnswer[curr.bowling_team] += totalExtras;
             }
-            acc[curr.bowling_team] += totalExtras;
           }
-          return acc;
-        }, {});
+          return finalAnswer;
+        };
+
+        const result = newfunc(deliveries);
 
         fs.writeFile(
-          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/3-extra-run-conceded.json",
-          JSON.stringify(extraRunsPerTeam2016),
-          (err, data) => {
-            if (err) console.log(err);
+          path.join(
+            __dirname,
+            "../SRC/PUBLIC/OUTPUT/3-extra-run-conceded.json"
+          ),
+          JSON.stringify(result),
+          (err) => {
+            if (err) {
+              console.error("Error writing file:", err);
+            } else {
+              console.log("File successfully written!");
+            }
           }
         );
 
-        console.log("Extra Runs Per Team in 2016:", extraRunsPerTeam2016);
+        console.log("Extra Runs Per Team in 2016:", result);
       });
   });

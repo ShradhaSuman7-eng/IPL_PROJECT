@@ -15,7 +15,7 @@ csvToJson()
       .then((deliveries) => {
         const bowlerStats = {};
 
-        deliveries.forEach((curr) => {
+        for (let curr of deliveries) {
           let superOver = curr.is_super_over;
           if (superOver === "1") {
             let bowler = curr.bowler;
@@ -34,7 +34,7 @@ csvToJson()
               bowlerStats[bowler].balls += 1;
             }
           }
-        });
+        }
 
         const economyRates = {};
         for (let bowler in bowlerStats) {
@@ -50,7 +50,7 @@ csvToJson()
         let ans = sortedEconomy[0];
 
         fs.writeFileSync(
-          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
+          "IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
           JSON.stringify(ans),
           (err) => {
             if (err) throw err;

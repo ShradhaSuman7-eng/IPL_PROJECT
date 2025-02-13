@@ -14,18 +14,22 @@ csv()
   .then((source) => {
     // Number of matches played per year for all the years in IPL.
 
-    let seasons = source.map((match) => match.season);
-    const matchesPerYear = seasons.reduce((total, season) => {
-      if (!total[season]) {
-        total[season] = 0;
+    function countMatchesPerYear(source) {
+      let matchesPerYear = {};
+    
+      for (let match of source) {
+        let season = match.season;
+        matchesPerYear[season] = (matchesPerYear[season] || 0) + 1; 
       }
-      total[season]++;
-      return total;
-    }, {});
-
+      
+      return matchesPerYear;
+    }
+    const finalAnswer = countMatchesPerYear(source); 
+   
+    
     fs.writeFile(
       "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/1-match-per-year-json",
-      JSON.stringify(matchesPerYear),
+      JSON.stringify(finalAnswer),
       (err) => {
         if (err) {
           console.log(err);
@@ -33,5 +37,5 @@ csv()
       }
     );
 
-    console.log(matchesPerYear);
+    console.log(finalAnswer);
   });

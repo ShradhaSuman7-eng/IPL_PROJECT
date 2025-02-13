@@ -10,68 +10,52 @@ csvToJson()
   .fromFile(matchesFilePath)
 
   .then((matches) => {
-    let matchSeasonMap = matches.reduce((acc, match) => {
-      if (!acc[match.season]) {
-        acc[match.season] = [];
+    let matchSeasonMap = {};
+    for (let curr of matches) {
+      let season = curr.season;
+      if (!matchSeasonMap[season]) {
+        matchSeasonMap[season] = [];
       }
-      acc[match.season].push(match.id);
-      return acc;
-    }, {});
-
-
+      matchSeasonMap[season].push(curr.id);
+    }
+    // console.log(matchSeasonMap);
 
     csvToJson()
       .fromFile(deliveriesFilePath)
       .then((deliveries) => {
-        let batsmanStats = {};
+        function findStrikerate(deliveries) {
+          let storeStrikerate = {};
 
-        // deliveries.forEach((curr) => {
-        //   let matchId = curr.match_id;
+          for (let curr of deliveries) {
+            let matchId = curr.match_id;
 
-        //   for (let season in matchSeasonMap) {
-        //     if (matchSeasonMap[season].includes(matchId)) {
-        //       let batsman = curr.batsman;
-        //       let runsScored = parseInt(curr.batsman_runs);
-        //       let ballsFaced = 1;
+            
+            let season = Object.keys(matchSeasonMap).find((s) =>
+              matchSeasonMap[s].includes(matchId)
+            );
 
-        //       if (!batsmanStats[season]) {
-        //         batsmanStats[season] = {};
-        //       }
+            if (!season) continue;
 
-        //       if (!batsmanStats[season][batsman]) {
-        //         batsmanStats[season][batsman] = { runs: 0, balls: 0 };
-        //       }
+            let batsman = curr.batsman;
+            let runsScored = parseInt(curr.batsman_runs);
+            let totalBalls = curr.wide_runs > 0 || curr.noball_runs > 0 ? 0 : 1;
 
-        //       batsmanStats[season][batsman].runs += runsScored;
-        //       batsmanStats[season][batsman].balls += ballsFaced;
-        //     }
-        //   }
-        // });
+            if (!storeStrikerate[season]) {
+              storeStrikerate[season] = {};
+            }
 
+            if (!storeStrikerate[season][batsman]) {
+              storeStrikerate[season][batsman] = { runs: 0, balls: 0 };
+            }
 
-      let result=deliveries.reduce((acc,curr)=>{
-        let matchId = curr.match_id;
-        for (let season in matchSeasonMap) {
-        if (matchSeasonMap[season].includes(matchId)) {
-          let batsman = curr.batsman;
-          let runsScored = parseInt(curr.batsman_runs);
-          let totalballs = curr.wide_runs > 0 || curr.noball_runs > 0 ? 0 : 1;
-
-          if (!acc[season]) {
-            acc[season] = {};
+            storeStrikerate[season][batsman].runs += runsScored;
+            storeStrikerate[season][batsman].balls += totalBalls;
           }
 
-          if (!acc[season][batsman]) {
-            acc[season][batsman] = { runs: 0, balls: 0 };
-          }
-
-          acc[season][batsman].runs += runsScored;
-          acc[season][batsman].balls += totalballs;
+          return storeStrikerate;
         }
-      }
-        return acc;
-      },{})
-        
+
+        let result = findStrikerate(deliveries);
 
         let strikeRates = {};
 
@@ -91,7 +75,6 @@ csvToJson()
           JSON.stringify(strikeRates),
           (err, data) => {
             if (err) throw err;
-            
           }
         );
         console.log(strikeRates);

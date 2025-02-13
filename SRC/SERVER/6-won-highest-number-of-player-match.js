@@ -11,19 +11,25 @@ csvToJson()
   .fromFile(matchesFilePath)
 
   .then((matches) => {
-    let result = matches.reduce((acc, match) => {
-      let season = match.season;
-      let player = match.player_of_match;
-      if (!acc[season]) {
-        acc[season] = {};
+    let players = {};
+
+    function storehighestAwardWinners(matches) {
+      for (let curr of matches) {
+        let season = curr.season;
+        let player = curr.player_of_match;
+
+        if (!players[season]) {
+          players[season] = {};
+        }
+        if (!players[season][player]) {
+          players[season][player] = 1;
+        } else {
+          players[season][player]++;
+        }
       }
-      if (!acc[season][player]) {
-        acc[season][player] = 1;
-      } else {
-        acc[season][player]++;
-      }
-      return acc;
-    }, {});
+      return players;
+    }
+    let result=storehighestAwardWinners(matches)
 
     let highestAwardWinners = {};
     for (let season in result) {
