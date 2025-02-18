@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const csv = require("csvtojson");
 
-const csvFilePath = path.join(__dirname, "../DATA/matches.csv");
+const csvFilePath = path.join(__dirname, "../data/matches.csv");
 
 if (!fs.existsSync(csvFilePath)) {
   console.error("Error: CSV file does not exist at path:", csvFilePath);
@@ -24,7 +24,7 @@ csv()
     }, {});
 
     fs.writeFile(
-      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/1-match-per-year-json",
+      "/home/shradha/JAVASCRIPT2/IPL_PROJECT/src/public/output/1_match_per_year.json",
       JSON.stringify(matchesPerYear),
       (err) => {
         if (err) {

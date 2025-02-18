@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const csvToJson = require("csvtojson");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(matchesFilePath)
@@ -27,7 +27,7 @@ csvToJson()
         }, {});
 
         fs.writeFile(
-          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/3-extra-run-conceded.json",
+          "/home/shradha/JAVASCRIPT2/IPL_PROJECT/src/public/output/3_extra_run_conceded.json",
           JSON.stringify(extraRunsPerTeam2016),
           (err, data) => {
             if (err) console.log(err);

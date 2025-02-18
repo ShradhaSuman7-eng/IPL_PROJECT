@@ -4,8 +4,8 @@ const csvToJson = require("csvtojson");
 const path = require("path");
 const fs = require("fs");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(matchesFilePath)
@@ -44,7 +44,7 @@ csvToJson()
     }
 
     fs.writeFile(
-      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/6-won-highest-number-player-match.json",
+      "src/public/output/6_won_highest_number_player_match.json",
       JSON.stringify(highestAwardWinners),
       (err, data) => {
         if (err) throw err;

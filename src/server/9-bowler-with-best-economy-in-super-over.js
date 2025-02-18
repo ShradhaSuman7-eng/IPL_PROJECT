@@ -4,8 +4,8 @@ const csvToJson = require("csvtojson");
 const path = require("path");
 const fs = require("fs");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(matchesFilePath)
@@ -13,6 +13,8 @@ csvToJson()
     csvToJson()
       .fromFile(deliveriesFilePath)
       .then((deliveries) => {
+
+        
         const bowlerStats = {};
 
         deliveries.forEach((curr) => {
@@ -50,8 +52,8 @@ csvToJson()
         let ans = sortedEconomy[0];
 
         fs.writeFileSync(
-          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/9-bowler-with-best-economy-in-super-over.json",
-          JSON.stringify(ans),
+          "src/public/output/9_bowler_with_best_economy_in_super_over.json",
+          JSON.stringify(ans, null, 2),
           (err) => {
             if (err) throw err;
           }

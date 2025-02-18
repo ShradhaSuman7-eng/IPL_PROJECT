@@ -2,8 +2,8 @@ const csvToJson = require("csvtojson");
 const path = require("path");
 const fs = require("fs");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(deliveriesFilePath)
@@ -38,7 +38,7 @@ csvToJson()
     }
 
     fs.writeFileSync(
-      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/8-highest-number-of-times-dismissed-by-another.json",
+      "src/public/output/8_highest_number_of_times_dismissed_by_another.json",
       JSON.stringify(Details),
       (err, data) => {
         if (err) throw err;

@@ -3,8 +3,8 @@ const csvToJson = require("csvtojson");
 const path = require("path");
 const fs = require("fs");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(matchesFilePath)
@@ -25,29 +25,7 @@ csvToJson()
       .then((deliveries) => {
         let batsmanStats = {};
 
-        // deliveries.forEach((curr) => {
-        //   let matchId = curr.match_id;
-
-        //   for (let season in matchSeasonMap) {
-        //     if (matchSeasonMap[season].includes(matchId)) {
-        //       let batsman = curr.batsman;
-        //       let runsScored = parseInt(curr.batsman_runs);
-        //       let ballsFaced = 1;
-
-        //       if (!batsmanStats[season]) {
-        //         batsmanStats[season] = {};
-        //       }
-
-        //       if (!batsmanStats[season][batsman]) {
-        //         batsmanStats[season][batsman] = { runs: 0, balls: 0 };
-        //       }
-
-        //       batsmanStats[season][batsman].runs += runsScored;
-        //       batsmanStats[season][batsman].balls += ballsFaced;
-        //     }
-        //   }
-        // });
-
+    
 
       let result=deliveries.reduce((acc,curr)=>{
         let matchId = curr.match_id;
@@ -87,11 +65,10 @@ csvToJson()
         }
 
         fs.writeFile(
-          "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/7-strike-rate-of-batsman-each-season.json",
+          "/home/shradha/JAVASCRIPT2/IPL_PROJECT/src/public/output/7_strike_rate_of_batsman_each_season.json",
           JSON.stringify(strikeRates),
           (err, data) => {
             if (err) throw err;
-            
           }
         );
         console.log(strikeRates);

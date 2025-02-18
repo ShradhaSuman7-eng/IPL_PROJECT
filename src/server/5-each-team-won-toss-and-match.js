@@ -3,8 +3,8 @@ const csvToJson = require("csvtojson");
 const path = require("path");
 const fs = require("fs");
 
-const matchesFilePath = path.join(__dirname, "../DATA/matches.csv");
-const deliveriesFilePath = path.join(__dirname, "../DATA/deliveries.csv");
+const matchesFilePath = path.join(__dirname, "../data/matches.csv");
+const deliveriesFilePath = path.join(__dirname, "../data/deliveries.csv");
 
 csvToJson()
   .fromFile(matchesFilePath)
@@ -24,7 +24,7 @@ csvToJson()
     }, {});
 
     fs.writeFile(
-      "../IPL_PROJECT/SRC/PUBLIC/OUTPUT/5-each-team-won-toss-ans-match.json",
+      "src/public/output/5_each_team_won_toss_ans_match.json",
       JSON.stringify(result),
       (err, data) => {
         if (err) throw err;
